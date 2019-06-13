@@ -1,0 +1,16 @@
+Ejercicio 1:
+Fs = 100 Hz (senos)
+	- Componente continua
+	- A, F, Fase
+	- Ancho de banda
+	- Resolución espectral
+	- Eliminar la frecuencia mas baja
+	- Parte real e imaginaria
+
+Ejercicio 2:
+Fsx = Fsy = 100 Hz (senos)
+	- Componente continua
+	- A, F, Fase
+	- Ancho de banda
+	- Resolución espectral
+	- Donde se encuentran los coeficientes espectrales?
