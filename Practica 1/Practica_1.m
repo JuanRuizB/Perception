@@ -17,7 +17,7 @@ figure,bar(abs(Fourier)); %Se observa que la componente continua es 0 y que
                         % es totalmente simetrica.
 %% Ejercicio 6.
 frecuencias = linspace(0,Fs,N+1);
-figure,bar(frecuencias(1:end-1),log(1 - abs(Fourier))/(N/2));
+figure,bar(frecuencias(1:end-1),abs(Fourier)/(N/2));
 % Punto 1: La relacion entre las posiciones de las barras y la señal es la
 % frecuencia ya que en las barras que sobresalen corresponen a la
 % frecuencia de cada señal. No siempre ya que dependera de la resolucion

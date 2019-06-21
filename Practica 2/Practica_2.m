@@ -25,7 +25,7 @@ figure, imagesc(abs(J)), colormap gray; %Muestra los valores de la frecuencia
 pause;
 %--------------------------------------------------------------------------
 % Ejercicio 3.
-clear all,close all;
+clear all,close all; 
 A = 1;
 Fs = 100;
 Fx = [eps 5 10 25 50];

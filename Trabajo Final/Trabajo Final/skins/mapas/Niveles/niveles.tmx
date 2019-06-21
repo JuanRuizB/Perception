@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="10" height="7" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+ <tileset firstgid="1" source="../../objetos.tsx"/>
+ <layer id="1" name="Capa de Patrones 1" width="10" height="7">
+  <data encoding="csv">
+966,966,966,966,966,966,966,966,966,966,
+966,966,966,966,966,966,966,966,966,966,
+966,966,966,966,966,966,966,966,966,966,
+966,966,966,966,966,966,966,966,966,966,
+966,966,966,966,966,966,966,966,966,966,
+966,966,966,966,966,966,966,966,966,966,
+966,966,966,966,966,966,966,966,966,966
+</data>
+ </layer>
+ <layer id="3" name="Capa de patrones 2" width="10" height="7">
+  <data encoding="csv">
+0,0,0,0,0,1034,0,0,0,0,
+0,0,0,0,0,1034,0,0,1002,0,
+0,0,0,534,0,1034,0,534,0,0,
+0,0,0,0,0,1034,0,0,0,0,
+1034,1034,1034,0,0,534,0,0,0,0,
+0,602,0,0,0,534,0,534,0,0,
+0,0,0,0,0,534,0,0,0,0
+</data>
+ </layer>
+</map>

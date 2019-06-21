@@ -1,0 +1,1 @@
+Para ejecutar la práctica entera solo sería necesario ejecutar Laberinto.m

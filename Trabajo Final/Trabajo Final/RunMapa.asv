@@ -1,0 +1,168 @@
+function [MAPA,codMAPA] = RunMapa(mapa,indexPers,indexFondo,codMapa,direccionActual,direccionFutura)
+% Cargamos todos los posibles mapas que podremos utilizar
+fondosmapas = ['..\Trabajo Final\skins\mapas\fondomapa1.png'
+    '..\Trabajo Final\skins\mapas\fondomapa2.png'
+    '..\Trabajo Final\skins\mapas\fondomapa3.png'];
+
+% Cargamos todos los personajes
+personajes = imread('personajes.png');
+
+personaje = personajes(32*indexFondo - 31:32*indexFondo,32*indexPers - 31:32*indexPers,:);
+fondo = imread(fondosmapas(indexFondo,:));
+fondo = fondo(1:32,1:32,:);
+
+
+switch(direccionFutura)
+    case 'S'
+        [MAPA,codMAPA] = moverArriba(mapa,personaje,fondo,codMapa,direccionActual,direccionFutura);
+    case 'B'
+        [MAPA,codMAPA] = moverAbajo(mapa,personaje,fondo,codMapa,direccionActual,direccionFutura);
+    case 'I'
+        [MAPA,codMAPA] = moverIzquierda(mapa,personaje,fondo,codMapa,direccionActual,direccionFutura);
+    case 'D'
+        [MAPA,codMAPA] = moverDerecha(mapa,personaje,fondo,codMapa,direccionActual,direccionFutura);
+    case 'F'
+        [MAPA,codMAPA] = disparar(mapa,fondo,codMapa,direccionActual);
+end
+
+end
+
+
+function [MAPA,codMAPA] = moverArriba(mapa,personaje,fondo,codMapa,direccionActual,direccionFutura)
+
+indP = find(codMapa=='P');
+[indP(1), indP(2)] = ind2sub(size(codMapa),indP);
+
+a = 32*indP(1)-31; b = 32*indP(2) - 31;
+MAPA = mapa;
+codMAPA = codMapa;
+if direccionActual==direccionFutura
+    if(indP(1)>1 && codMAPA(indP(1)-1,indP(2))~='X')
+        MAPA(a:a+31,b:b+31,:) = fondo;
+        MAPA(a-32:a-32+31,b:b+31,:) = personaje;
+        
+        codMAPA(indP(1),indP(2)) = '0';
+        codMAPA(indP(1)-1,indP(2)) = 'P';
+    end
+end
+end
+
+function [MAPA,codMAPA] = moverAbajo(mapa,personaje,fondo,codMapa,direccionActual,direccionFutura)
+
+indP = find(codMapa=='P');
+[indP(1), indP(2)] = ind2sub(size(codMapa),indP);
+
+a = 32*indP(1)-31; b = 32*indP(2) - 31;
+MAPA = mapa;
+codMAPA = codMapa;
+
+if direccionActual==direccionFutura    
+    if(indP(1)<7 && codMAPA(indP(1)+1,indP(2))~='X')
+        MAPA(a:a+31,b:b+31,:) = fondo;
+        MAPA(a+32:a+32+31,b:b+31,:) = personaje;
+        
+        codMAPA(indP(1),indP(2)) = '0';
+        codMAPA(indP(1)+1,indP(2)) = 'P';
+    end
+end
+end
+
+function [MAPA,codMAPA] = moverDerecha(mapa,personaje,fondo,codMapa,direccionActual,direccionFutura)
+
+indP = find(codMapa=='P');
+[indP(1), indP(2)] = ind2sub(size(codMapa),indP);
+
+a = 32*indP(1)-31; b = 32*indP(2) - 31;
+MAPA = mapa;
+codMAPA = codMapa;
+if direccionActual==direccionFutura  
+    if(indP(2)<10 && codMAPA(indP(1),indP(2)+1)~='M')
+        MAPA(a:a+31,b:b+31,:) = fondo;
+        MAPA(a:a+31,b+32:b+32+31,:) = personaje;
+        
+        codMAPA(indP(1),indP(2)) = '0';
+        codMAPA(indP(1),indP(2)+1) = 'P';
+    end
+end
+end
+
+function [MAPA,codMAPA] = moverIzquierda(mapa,personaje,fondo,codMapa,direccionActual,direccionFutura)
+indP = find(codMapa=='P');
+[indP(1), indP(2)] = ind2sub(size(codMapa),indP);
+
+a = 32*indP(1)-31; b = 32*indP(2) - 31;
+MAPA = mapa;
+codMAPA = codMapa;
+if direccionActual==direccionFutura    
+    if(indP(2)>1 && (codMAPA(indP(1),indP(2)-1)=='M'))
+        MAPA(a:a+31,b:b+31,:) = fondo;
+        MAPA(a:a+31,b-32:b-32+31,:) = personaje;
+        
+        codMAPA(indP(1),indP(2)) = '0';
+        codMAPA(indP(1),indP(2)-1) = 'P';
+    end
+end
+end
+
+function [MAPA,codMapa] = disparar(mapa,fondo,codMapa,direccionActual)
+MAPA = mapa;
+codMAPA = codMapa;
+
+indP = find(codMapa=='P');
+[indP(1), indP(2)] = ind2sub(size(codMapa),indP);
+
+switch(direccionActual)
+    case 'S'
+        indM = find(codMapa(1:indP(1),indP(2))=='M');
+        if(~isempty(indM))
+            if all(codMapa(indM) ~= 'M')
+            indM = indM(1);
+            a = 32*(indP(1)+indM-1)-31; b = 32*indP(2) - 31;
+            
+            MAPA(a:a+31,b:b+31,:) = fondo;
+            
+            codMAPA((indP(1)+indM-1),indP(2)) = '0';
+            end
+        end
+    case 'B'
+        indM = find(codMapa(indP(1):end,indP(2))=='M');
+        if(~isempty(indM))
+            if all(codMapa(indM) ~= 'M')
+            indM = indM(1);
+            a = 32*(indP(1)+indM-1)-31; b = 32*indP(2) - 31;
+            
+            MAPA(a:a+31,b:b+31,:) = fondo;
+            
+            codMAPA(indP(1)+indM-1,indP(2)) = '0';
+            end
+        end
+    case 'I'
+        indM = find(codMapa(indP(1),1:indP(2))=='M');
+        if(~isempty(indM))
+            if all(codMapa(indM) ~= 'M')
+            indM = indM(1);
+            a = 32*indP(1) - 31; b = 32*(indP(2)-indM-1)-31;
+            
+            MAPA(a:a+31,b:b+31,:) = fondo;
+            
+            codMAPA(indP(1),indP(2)-indM-1) = '0';
+            end
+        end
+    case 'D'
+        indM = find(codMapa(indP(1),indP(2):end)=='M');
+        if(~isempty(indM))
+            if all(codMapa(indM) ~= 'M')
+            indM = indM(1);
+            
+            a = 32*indP(1) - 31; b = 32*(indP(2)+indM-1)-31;
+            
+            MAPA(a:a+31,b:b+31,:) = fondo;
+            
+            codMAPA(indP(1),indP(2)+indM-1) = '0';
+            end
+        end
+
+end
+
+
+end
